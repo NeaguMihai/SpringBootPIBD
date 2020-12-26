@@ -4,9 +4,11 @@ import com.neagumihai.proiectpibddata.model.Tema;
 import com.neagumihai.proiectpibddata.repositories.SearcherRepository;
 import com.neagumihai.proiectpibddata.repositories.TemaRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TemaServiceImpl implements TemaService{
 
     private final TemaRepository temaRepository;
