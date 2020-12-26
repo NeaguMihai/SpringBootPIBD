@@ -33,8 +33,8 @@ public class ElevServiceImpl implements ElevService{
     }
 
     @Override
-    public Set<Elev> getAll(Integer hLimit, Integer lLimit) {
-        return null;
+    public List<Elev> getAll(Integer offset, Integer limit) {
+        return elevRepository.getAllByLimit(offset, limit);
     }
 
     @Override

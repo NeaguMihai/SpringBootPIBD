@@ -13,7 +13,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-//@SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class ElevSearcherRepositoryTest{

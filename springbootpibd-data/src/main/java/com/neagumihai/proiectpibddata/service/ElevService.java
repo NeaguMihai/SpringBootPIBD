@@ -10,7 +10,7 @@ public interface ElevService {
 
     boolean saveElev(Elev elev);
 
-    Set<Elev> getAll(Integer hLimit, Integer lLimit);
+    List<Elev> getAll(Integer hLimit, Integer lLimit);
 
     List<Elev> getBySelects(Elev elev);
 
