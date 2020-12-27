@@ -2,19 +2,15 @@ package com.neagumihai.proiectpibddata.service;
 
 import com.neagumihai.proiectpibddata.model.Elev;
 import com.neagumihai.proiectpibddata.repositories.ElevRepository;
-import com.neagumihai.proiectpibddata.repositories.SearcherRepository;
+import com.neagumihai.proiectpibddata.repositories.ElevSearcherRepository;
+import com.neagumihai.proiectpibddata.repositories.ElevSearcherRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.*;
-
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.*;
 
@@ -29,7 +25,7 @@ class ElevServiceImplTest {
     ElevRepository elevRepository ;
 
     @Mock
-    SearcherRepository<Elev> searcherRepository;
+    ElevSearcherRepository searcherRepository;
 
 
     @InjectMocks
@@ -46,7 +42,7 @@ class ElevServiceImplTest {
     @Test
     void saveElevTest() {
         when(elevRepository.save(any())).thenReturn(returned);
-        when(searcherRepository.getBySelects(returned)).thenReturn(Collections.emptyList()).thenReturn(Collections.singletonList(returned));
+        when(searcherRepository.getFiltering(returned)).thenReturn(Collections.emptyList()).thenReturn(Collections.singletonList(returned));
         boolean b = elevService.saveElev(returned);
         boolean c = elevService.saveElev(returned);
 

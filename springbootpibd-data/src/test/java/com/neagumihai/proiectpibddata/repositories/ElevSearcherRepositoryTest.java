@@ -21,11 +21,11 @@ public class ElevSearcherRepositoryTest{
     private EntityManager testEntityManager;
 
 
-    private ElevSearcherRepository elevSearcherRepository;
+    private ElevSearcherRepositoryImpl elevSearcherRepository;
 
     @BeforeEach
     void setup() {
-        elevSearcherRepository = new ElevSearcherRepository(testEntityManager);
+        elevSearcherRepository = new ElevSearcherRepositoryImpl(testEntityManager);
         Elev e1 = new Elev();
         e1.setNume("mih");
         e1.setPrenume("nah");
@@ -49,7 +49,7 @@ public class ElevSearcherRepositoryTest{
         Elev e1 = new Elev();
         e1.setNume("mih");
 
-        List<Elev> returned = elevSearcherRepository.getBySelects(e1);
+        List<Elev> returned = elevSearcherRepository.getFiltering(e1);
 
         Assertions.assertEquals(returned.size(),2);
 
@@ -61,7 +61,7 @@ public class ElevSearcherRepositoryTest{
         e1.setPuncte(22);
         e1.setPrenume("nah");
 
-        List<Elev> returned = elevSearcherRepository.getBySelects(e1);
+        List<Elev> returned = elevSearcherRepository.getFiltering(e1);
 
         Assertions.assertEquals(returned.size(),1);
 

@@ -1,9 +1,8 @@
 package com.neagumihai.proiectpibddata.service;
 
 import com.neagumihai.proiectpibddata.model.Tema;
-import com.neagumihai.proiectpibddata.repositories.SearcherRepository;
 import com.neagumihai.proiectpibddata.repositories.TemaRepository;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.neagumihai.proiectpibddata.repositories.TemaSearcherRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +12,9 @@ public class TemaServiceImpl implements TemaService{
 
     private final TemaRepository temaRepository;
 
-    @Qualifier("TemaSearcherRepository")
-    private final SearcherRepository<Tema> searcherRepository;
+    private final TemaSearcherRepository searcherRepository;
 
-    public TemaServiceImpl(TemaRepository temaRepository, SearcherRepository<Tema> searcherRepository) {
+    public TemaServiceImpl(TemaRepository temaRepository, TemaSearcherRepository searcherRepository) {
         this.temaRepository = temaRepository;
         this.searcherRepository = searcherRepository;
     }
@@ -43,7 +41,7 @@ public class TemaServiceImpl implements TemaService{
 
     @Override
     public List<Tema> getBySelects(Tema tema) {
-        return searcherRepository.getBySelects(tema);
+        return searcherRepository.getFiltering(tema);
     }
 
     @Override

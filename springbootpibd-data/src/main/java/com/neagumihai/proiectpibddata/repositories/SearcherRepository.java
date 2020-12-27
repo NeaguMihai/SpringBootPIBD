@@ -1,8 +1,12 @@
 package com.neagumihai.proiectpibddata.repositories;
 
-import java.util.List;
-public interface SearcherRepository<S> {
 
-    List<S> getBySelects(S model);
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+public interface SearcherRepository<S>{
+
+    List<S> getFiltering(S model);
 
 }

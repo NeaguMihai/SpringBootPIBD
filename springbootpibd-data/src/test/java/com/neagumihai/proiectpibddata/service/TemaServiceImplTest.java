@@ -1,10 +1,9 @@
 package com.neagumihai.proiectpibddata.service;
 
-import com.neagumihai.proiectpibddata.model.Elev;
 import com.neagumihai.proiectpibddata.model.Tema;
-import com.neagumihai.proiectpibddata.repositories.ElevRepository;
 import com.neagumihai.proiectpibddata.repositories.SearcherRepository;
 import com.neagumihai.proiectpibddata.repositories.TemaRepository;
+import com.neagumihai.proiectpibddata.repositories.TemaSearcherRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +29,7 @@ class TemaServiceImplTest {
     TemaRepository temaRepository ;
 
     @Mock
-    SearcherRepository<Tema> searcherRepository;
+    TemaSearcherRepository searcherRepository;
 
 
     @InjectMocks
@@ -47,7 +46,7 @@ class TemaServiceImplTest {
     @Test
     void saveElevTest() {
         when(temaRepository.save(any())).thenReturn(returned);
-        when(searcherRepository.getBySelects(any())).thenReturn(Collections.emptyList()).thenReturn(Collections.singletonList(returned));
+        when(searcherRepository.getFiltering(any())).thenReturn(Collections.emptyList()).thenReturn(Collections.singletonList(returned));
         boolean b = temaService.saveTema(returned);
         boolean c = temaService.saveTema(returned);
 

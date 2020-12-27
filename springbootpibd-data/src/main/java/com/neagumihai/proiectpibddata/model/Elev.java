@@ -3,6 +3,8 @@ package com.neagumihai.proiectpibddata.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "elev")
@@ -30,6 +32,10 @@ public class Elev {
 
     @Column(name = "puncte")
     private Integer puncte;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "elev", fetch = FetchType.EAGER)
+
+    private Set<ElevTema> elevTemaSet = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -85,5 +91,13 @@ public class Elev {
 
     public void setPuncte(Integer puncte) {
         this.puncte = puncte;
+    }
+
+    public Set<ElevTema> getElevTemaSet() {
+        return elevTemaSet;
+    }
+
+    public void setElevTemaSet(Set<ElevTema> elevTemaSet) {
+        this.elevTemaSet = elevTemaSet;
     }
 }

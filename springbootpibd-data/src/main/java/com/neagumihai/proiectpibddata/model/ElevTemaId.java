@@ -1,7 +1,5 @@
 package com.neagumihai.proiectpibddata.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -20,11 +18,11 @@ public class ElevTemaId implements Serializable {
         this.idTema = idTema;
     }
 
-    public Integer getIdElev() {
+    public Integer getElev() {
         return idElev;
     }
 
-    public void setIdElev(Integer idElev) {
+    public void setElev(Integer idElev) {
         this.idElev = idElev;
     }
 
