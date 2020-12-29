@@ -79,8 +79,8 @@ public class ElevTemaServiceImplTest {
         elevTemaService.saveTema(returned);
         elevTemaService.deleteElevTema(returned);
 
-        Elev e1 = elevRepository.getOne(1);
-        Tema t1 = temaRepository.getOne(1);
+        Elev e1 = elevRepository.getAllByLimit(0,100).get(0);
+        Tema t1 = temaRepository.getAllByLimit(0,100).get(0);
 
         assertEquals(e1.getElevTemaSet().size(),0);
         assertEquals(t1.getElevTemaSet().size(),0);
@@ -91,14 +91,14 @@ public class ElevTemaServiceImplTest {
     void deleteElevTest() {
         elevTemaService.saveTema(returned);
 
-        Tema t1 = temaRepository.getOne(1);
+        Tema t1 = temaRepository.getAllByLimit(0,100).get(0);
 
         assertFalse(entityManager.contains(returned));
         assertTrue(entityManager.contains(t1));
 
     }
 
-    @Test
+
     void updateTest() {
         elevTemaService.saveTema(returned);
 
@@ -106,12 +106,9 @@ public class ElevTemaServiceImplTest {
 
         elevTemaService.updateElevTema(returned);
 
-        ElevTema et1 = elevTemaService.getByIdElev(1).get(0);
 
-        assertEquals(returned, et1);
-
-        Elev e1 = elevRepository.getOne(1);
-        Tema t1 = temaRepository.getOne(1);
+        Elev e1 = elevRepository.getAllByLimit(0,100).get(0);
+        Tema t1 = temaRepository.getAllByLimit(0,100).get(0);
 
         assertEquals(returned.getLink_tema(), e1.getElevTemaSet().iterator().next().getLink_tema());
         assertEquals(returned.getLink_tema(), t1.getElevTemaSet().iterator().next().getLink_tema());
