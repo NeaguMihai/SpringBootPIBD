@@ -8,3 +8,6 @@ spring:
   h2:
     console:
       enabled: true
+  devtools:
+    restart:
+      log-condition-evaluation-delta: true

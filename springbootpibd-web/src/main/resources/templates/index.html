@@ -2,20 +2,65 @@
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/imports :: include">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Aplicatia PIBD</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 </head>
-<body>
+<body >
+<nav th:insert="fragments/imports :: navbar"></nav>
+<div class="container space-10">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+        <p class="text-color font-weight-bold">Nulla facilisi. In in sollicitudin ante. Sed vitae ipsum vel augue scelerisque aliquet ut quis eros. Sed bibendum imperdiet malesuada. Suspendisse vitae risus et eros suscipit efficitur. Fusce metus magna, porta a lacinia ut, congue a eros. Nam vulputate, purus nec semper convallis, velit urna scelerisque libero, non luctus nulla justo maximus purus. </p>
+        </div>
+    </div>
+    <div class="row justify-content-center text-color space-5">
+        <div class="col-5 space-5">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br> Donec quis metus quis nisi vestibulum aliquam in lacinia nulla.<br> Proin posuere volutpat ipsum, interdum ullamcorper massa fermentum in.<br> Nullam in pulvinar justo, a gravida ante.<br> Donec venenatis laoreet purus, eget tincidunt odio cursus ut. Nam egestas mauris vitae bibendum varius. Aenean quis varius quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vulputate eleifend tortor, vel interdum massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer pharetra tristique diam eu pulvinar. Donec sit amet dolor sed ex molestie egestas quis a leo. </p>
+        </div>
+        <div class="col-5">
+            <img alt="not found" src="../static/images/notebook.png" th:src="@{/images/notebook.png}" style="width: 25vw">
+        </div>
+    </div>
+    <div class="row justify-content-center text-color space-5">
+        <div class="col-5">
+            <img class="space-5" alt="not found"
+                 src="../static/images/laptop.png" th:src="@{/images/laptop.png}" style="width: 25vw">
+        </div>
+        <div class="col-5 space-5">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br> Donec quis metus quis nisi vestibulum aliquam in lacinia nulla.<br> Proin posuere volutpat ipsum, interdum ullamcorper massa fermentum in.<br> Nullam in pulvinar justo, a gravida ante.<br> Donec venenatis laoreet purus, eget tincidunt odio cursus ut. Nam egestas mauris vitae bibendum varius. Aenean quis varius quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vulputate eleifend tortor, vel interdum massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer pharetra tristique diam eu pulvinar. Donec sit amet dolor sed ex molestie egestas quis a leo. </p>
+        </div>
+
+    </div>
+    <div class="row justify-content-center space-5">
+        <div class="col-5">
+            <div class="row">
+                <div class="col">
+                    <h1 style="font-size: 1.5vw">Daca vrei sa te inregistrezi</h1>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col">
+                    <button type="button" class="btn btn-outline-secondary" style="font-size: 1.5vw">Register</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="row justify-content-center">
+                <div class="col">
+                    <h1 style="font-size: 1.5vw">Daca esti deja inregistrat</h1>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col justify-content-center">
+                    <button type="button" class="btn btn-outline-secondary" style="font-size: 1.5vw">Login</button>
+                </div>
+            </div>
+        </div>
 
 
-<div class="container"><br/>
-    <div class="alert alert-success">
-        <a href="#" class="close" data-dismiss="alert"
-           aria-label="close">×</a>
-        <strong>Success!</strong> It is working as we expected.
     </div>
 </div>
+
+<footer th:insert="fragments/footer :: footer"></footer>
 </body>
 </html>

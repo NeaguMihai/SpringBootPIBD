@@ -59,8 +59,18 @@ public class Bootstrap implements CommandLineRunner {
         t2.setNumeTema("tema2");
         t2.setPuncte(22);
 
+        Tema t3 = new Tema();
+        t3.setNumeTema("tema3");
+        t3.setPuncte(33);
+
+        Tema t4 = new Tema();
+        t4.setNumeTema("tema4");
+        t4.setPuncte(44);
+
         temaService.saveTema(t1);
         temaService.saveTema(t2);
+        temaService.saveTema(t3);
+        temaService.saveTema(t4);
 
         ElevTema et1 = new ElevTema();
         et1.setElev(e1);
