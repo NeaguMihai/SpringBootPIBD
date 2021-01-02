@@ -46,6 +46,11 @@ body {
     background: linear-gradient(167deg, rgba(92,219,149,1) 0%, rgba(237,245,225,1) 100%);
 }
 
+.gradient-bg {
+    background: #5CDB95;
+    background: linear-gradient(167deg, rgba(92,219,149,1) 0%, rgba(237,245,225,1) 100%);
+}
+
 .text-color {
     color: #05386B;
 }

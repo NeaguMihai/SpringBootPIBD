@@ -1,5 +1,6 @@
 package com.proiectpibd.bootstrap;
 
+import com.neagumihai.proiectpibddata.model.Dificultate;
 import com.neagumihai.proiectpibddata.model.Elev;
 import com.neagumihai.proiectpibddata.model.ElevTema;
 import com.neagumihai.proiectpibddata.model.Tema;
@@ -44,6 +45,7 @@ public class Bootstrap implements CommandLineRunner {
         e1.setPrenume("pren1");
         e1.setNume("nume1");
 
+
         Elev e2  = new Elev();
         e2.setPrenume("pren2");
         e2.setNume("nume2");
@@ -54,10 +56,18 @@ public class Bootstrap implements CommandLineRunner {
         Tema t1 = new Tema();
         t1.setNumeTema("tema1");
         t1.setPuncte(11);
+        t1.setNumeCulegere("cul1");
+        t1.setCerintaTema("loren ipsul sum dolors");
+        t1.setDificultate(Dificultate.Mediu);
+
 
         Tema t2 = new Tema();
         t2.setNumeTema("tema2");
         t2.setPuncte(22);
+        t1.setNumeCulegere("cul2");
+        t1.setCerintaTema("loren ipsul sum dolors");
+        t1.setDificultate(Dificultate.Greu);
+
 
         Tema t3 = new Tema();
         t3.setNumeTema("tema3");
@@ -67,10 +77,20 @@ public class Bootstrap implements CommandLineRunner {
         t4.setNumeTema("tema4");
         t4.setPuncte(44);
 
+        Tema t5 = new Tema();
+        t5.setNumeTema("tema5");
+        t5.setPuncte(55);
+
+        Tema t6 = new Tema();
+        t6.setNumeTema("tema6");
+        t6.setPuncte(66);
+
         temaService.saveTema(t1);
         temaService.saveTema(t2);
         temaService.saveTema(t3);
         temaService.saveTema(t4);
+        temaService.saveTema(t5);
+        temaService.saveTema(t6);
 
         ElevTema et1 = new ElevTema();
         et1.setElev(e1);

@@ -1,17 +1,17 @@
 package com.proiectpibd.controllers;
 
+import com.neagumihai.proiectpibddata.model.Tema;
 import com.neagumihai.proiectpibddata.service.TemaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/teme")
 public class TemeController {
 
     private final TemaService temaService;
+    private static final String TEMACREATEUPDATEFORM = "temaCreateUpdateForm";
 
     public TemeController(TemaService temaService) {
         this.temaService = temaService;
@@ -45,5 +45,11 @@ public class TemeController {
         model.addAttribute("teme", temaService.getAll((newOffset - 1) *10, 10));
 
         return "teme/index";
+    }
+
+    @GetMapping({"/nou"})
+    public String createTema(Model model) {
+        model.addAttribute("tema", new Tema());
+        return "teme/" + TEMACREATEUPDATEFORM;
     }
 }

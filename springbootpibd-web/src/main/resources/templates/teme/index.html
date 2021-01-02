@@ -7,8 +7,25 @@
 </head>
 <body>
 <nav th:insert="fragments/imports :: navbar"></nav>
-<div class="container space-10">
-    <div class="container space-5" style="border: 6px solid #05386B; border-radius: 25px" th:each="tema : ${teme}">
+<div class="container justify-content-center space-10">
+    <a th:href="'teme/nou'">
+    <button class="btn btn-outline-secondary " >Adauga o tema</button>
+    </a>
+</div>
+<div class="container space-5">
+    <div class="container space-5 gradient-bg" style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="tema : ${teme}">
+        <div class="row">
+            <div class="col ">
+                <a th:href="@{'/teme/' + ${tema.getId()} + '/delete'}">
+                <button class="btn btn-outline-secondary" >Sterge tema</button>
+                </a>
+            </div>
+            <div class="col">
+                <a th:href="@{'/teme/' + ${tema.getId()} + '/update'}">
+                <button class="btn btn-outline-secondary" >Modifica tema</button>
+                </a>
+            </div>
+        </div>
         <div class="row" >
             <div class="col" style="text-align: center">
                 <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume: </h1>

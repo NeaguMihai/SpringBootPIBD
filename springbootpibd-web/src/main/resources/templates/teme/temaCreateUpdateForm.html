@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/imports :: include">
+
+
+</head>
+<body>
+<nav th:insert="fragments/imports :: navbar"></nav>
+<div class="container space-10">
+
+    <form th:object="${tema}" th:action="@{'/tema/'}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="row justify-content-center">
+            <div class="col-5" style="box-shadow: 1px 5px 20px 5px #05386B; text-align: center">
+                <label class="text-color" style="margin-top: 10px">Numele Temei:</label><br/>
+                <input type="text" th:field="*{numeTema}"><br/>
+                <label class="text-color" style="margin-top: 10px">Numele Culegerii:</label><br/>
+                <input type="text" th:field="*{numeCulegere}"><br/>
+                <label class="text-color" style="margin-top: 10px">Numarul Temei:</label><br/>
+                <input type="text" th:field="*{numarTema}"><br/>
+                <label class="text-color" style="margin-top: 10px">Cerinta Temei:</label><br/>
+                <input type="text" th:field="*{cerintaTema}"><br/>
+                <label class="text-color" style="margin-top: 10px">Numar Puncte:</label><br/>
+                <input type="text" th:field="*{puncte}"><br/>
+                <label class="text-color" style="margin-top: 10px">Dificultate:</label><br/>
+                <select class="form-control" th:field="*{dificultate}">
+                    <option th:each="dificultate : ${T(com.neagumihai.proiectpibddata.model.Dificultate).values()}"
+                            th:value="${dificultate}"
+                            th:text="${dificultate}"></option>
+                </select><br/>
+                <input type="submit" class="btn btn-outline-secondary" value="Creaza" style="margin-bottom: 10px">
+
+
+            </div>
+        </div>
+
+
+    </form>
+</div>
+<footer th:insert="fragments/footer :: footer" ></footer>
+</body>
+</html>
