@@ -15,4 +15,5 @@ public interface TemaRepository extends JpaRepository<Tema, Integer> {
     List<Tema> getAllByLimit(Integer offset, Integer limit);
 
 
+
 }

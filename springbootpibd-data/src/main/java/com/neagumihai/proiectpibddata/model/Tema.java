@@ -98,4 +98,18 @@ public class Tema {
     public void setElevTemaSet(Set<ElevTema> elevTemaSet) {
         this.elevTemaSet = elevTemaSet;
     }
+
+    @Override
+    public String toString() {
+        return "Tema{" +
+                "id=" + id +
+                ", numeTema='" + numeTema + '\'' +
+                ", numeCulegere='" + numeCulegere + '\'' +
+                ", numarTema=" + numarTema +
+                ", cerintaTema='" + cerintaTema + '\'' +
+                ", dificultate=" + dificultate +
+                ", puncte=" + puncte +
+                ", elevTemaSet=" + elevTemaSet +
+                '}';
+    }
 }

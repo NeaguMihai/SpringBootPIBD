@@ -64,25 +64,30 @@ public class Bootstrap implements CommandLineRunner {
         Tema t2 = new Tema();
         t2.setNumeTema("tema2");
         t2.setPuncte(22);
-        t1.setNumeCulegere("cul2");
-        t1.setCerintaTema("loren ipsul sum dolors");
-        t1.setDificultate(Dificultate.Greu);
+        t2.setNumeCulegere("cul2");
+        t2.setCerintaTema("loren ipsul sum dolors");
+        t2.setDificultate(Dificultate.Greu);
 
 
         Tema t3 = new Tema();
         t3.setNumeTema("tema3");
+        t3.setNumeCulegere("cul3");
         t3.setPuncte(33);
+        t3.setDificultate(Dificultate.Mediu);
 
         Tema t4 = new Tema();
         t4.setNumeTema("tema4");
+        t4.setNumeCulegere("cul4");
         t4.setPuncte(44);
 
         Tema t5 = new Tema();
         t5.setNumeTema("tema5");
+        t5.setNumeCulegere("cul5");
         t5.setPuncte(55);
 
         Tema t6 = new Tema();
         t6.setNumeTema("tema6");
+        t6.setNumeCulegere("cul6");
         t6.setPuncte(66);
 
         temaService.saveTema(t1);

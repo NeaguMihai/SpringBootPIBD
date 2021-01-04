@@ -18,4 +18,6 @@ public interface ElevService {
 
     Elev updateById(Integer id, Elev elev);
 
+    Optional<Elev> getById(Integer id);
+
 }

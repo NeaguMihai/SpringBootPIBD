@@ -7,10 +7,33 @@
 </head>
 <body>
 <nav th:insert="fragments/imports :: navbar"></nav>
-<div class="container justify-content-center space-10">
-    <a th:href="'teme/nou'">
-    <button class="btn btn-outline-secondary " >Adauga o tema</button>
-    </a>
+<div class="container space-10">
+    <div class="row">
+        <div class="col-2">
+            <a th:href="@{'/teme/nou'}">
+                <button class="btn btn-outline-secondary " >Adauga o tema</button>
+            </a>
+        </div>
+        <div class="col" style="text-align: center">
+            <!-- @thymesVar id="tema" type="com.neagumihai.proiectpibddata.model.Tema"-->
+            <form th:object="${tema}" th:action="@{'/teme/search'}" method="get">
+                <input type="text" class="space-1" th:field="*{numeTema}" placeholder="Numele temei"/>
+                <input type="text" class="space-1" th:field="*{numeCulegere}" placeholder="Numele culegerii">
+                <input type="number" class="space-1" th:field="*{numarTema}" placeholder="Numarul temei">
+                <select class="form-control space-1"  th:field="*{dificultate}">
+                    <option th:each="dificultate : ${T(com.neagumihai.proiectpibddata.model.Dificultate).values()}"
+                            th:value="${dificultate}"
+                            th:text="${dificultate}"></option>
+                    <option th:value="null"
+                            th:text="null"></option>
+                </select>
+                <input type="submit" class="btn btn-outline-secondary space-1" value="Cauta">
+
+            </form>
+        </div>
+    </div>
+
+    <hr/>
 </div>
 <div class="container space-5">
     <div class="container space-5 gradient-bg" style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="tema : ${teme}">
@@ -76,14 +99,8 @@
         </div>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="d-flex flex-row mb-3 text-color">
-            <form th:action="@{/teme?offset=${offset}}" >
-                <button type="submit" name="action" value="left" class="p2 btn btn-outline-primary"><</button>
-                <input type="text" class="p-2 next-number" th:value="${offset}" th:name="offset"/>
-                <button type="submit" name="action" value="right" class="p2 btn btn-outline-primary">></button>
-            </form>
-        </div>
+    <div th:if="${!search}" th:insert="fragments/imports :: nextPage">
+
     </div>
 </div>
 <footer th:insert="fragments/footer :: footer"></footer>

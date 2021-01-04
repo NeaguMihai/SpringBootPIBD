@@ -1,6 +1,8 @@
 package com.neagumihai.proiectpibddata.model;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
@@ -21,6 +23,7 @@ public class Elev {
     @Column(name = "prenume")
     private String prenume;
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "data_nastere")
     private Date dataNastere;
 

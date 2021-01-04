@@ -8,8 +8,8 @@
 <body>
 <nav th:insert="fragments/imports :: navbar"></nav>
 <div class="container space-10">
-
-    <form th:object="${tema}" th:action="@{'/tema/'}" method="post">
+<!-- @thymesVar id="tema" type="com.neagumihai.proiectpibddata.model.Tema"-->
+    <form th:object="${tema}"  th:action="@{'/teme/save'}" method="post">
         <input type="hidden" th:field="*{id}">
         <div class="row justify-content-center">
             <div class="col-5" style="box-shadow: 1px 5px 20px 5px #05386B; text-align: center">

@@ -4,6 +4,7 @@ package com.neagumihai.proiectpibddata.service;
 import com.neagumihai.proiectpibddata.model.Tema;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TemaService {
 
@@ -16,5 +17,7 @@ public interface TemaService {
     void deleteById(Integer id);
 
     Tema updateById(Integer id, Tema tema);
+
+    Optional<Tema> getById(Integer id);
 
 }

@@ -29,12 +29,34 @@
                     <a class="nav-link" href="/teme">Toate temele</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">SignIn</a>
+                    <a class="nav-link" href="/elev">Elevi</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
+<div class="container space-10" style="text-align: center" th:fragment="searchElev">
+    <!-- @thymesVar id="tema" type="com.neagumihai.proiectpibddata.model.Elev"-->
+
+    <form th:action="@{'/elev/search'}" th:object="${elev}" method="get" >
+        <input type="text" class="form-control space-1" th:field="*{nume}" placeholder="Nume">
+        <input type="text" class="form-control space-1" th:field="*{prenume}" placeholder="Prenume">
+        <input type="text" class="form-control space-1" name="date" placeholder="Data Nastere(dd-MM-yyy)">
+        <input type="text" class="form-control space-1" th:field="*{clasa}" placeholder="Clasa">
+        <input type="number" class="form-control space-1" th:field="*{puncte}" placeholder="Puncte">
+        <input type="text" class="form-control space-1" th:field="*{scoala}" placeholder="Scoala">
+        <input type="submit" class="btn btn-outline-secondary space-1" value="Cauta">
+    </form>
+</div>
+<div class="row justify-content-center" th:fragment="nextPage">
+    <div class="d-flex flex-row mb-3 text-color">
+        <form th:action="@{/teme?offset=${offset}}" >
+            <button type="submit" name="action" value="left" class="p2 btn btn-outline-primary"><</button>
+            <input type="text" class="p-2 next-number" th:value="${offset}" th:name="offset"/>
+            <button type="submit" name="action" value="right" class="p2 btn btn-outline-primary">></button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

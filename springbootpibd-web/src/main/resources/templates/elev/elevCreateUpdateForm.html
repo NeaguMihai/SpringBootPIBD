@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/imports :: include">
+
+
+</head>
+<body>
+<nav th:insert="fragments/imports :: navbar"></nav>
+    <div class="container space-10">
+        <!-- @thymesVar id="elev" type="com.neagumihai.proiectpibddata.model.Elev"-->
+        <form th:object="${elev}" th:action="@{'/elev/save'}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <div class="row justify-content-center">
+                <div class="col-5" style="box-shadow: 1px 5px 20px 5px #05386B; text-align: center">
+                    <label class="text-color" style="margin-top: 10px">Numele Elevului:</label><br/>
+                    <input type="text" th:field="*{nume}"><br/>
+                    <label class="text-color" style="margin-top: 10px">Prenumele Elevului:</label><br/>
+                    <input type="text" th:field="*{prenume}"><br/>
+                    <label class="text-color" style="margin-top: 10px">Data Nastere:</label><br/>
+                    <input type="text" th:name="date" placeholder="dd-MM-yyyy"><br/>
+                    <label class="text-color" style="margin-top: 10px">Clasa:</label><br/>
+                    <input type="text" th:field="*{clasa}"><br/>
+                    <label class="text-color" style="margin-top: 10px">Scoala:</label><br/>
+                    <input type="text" th:field="*{scoala}"><br/>
+                    <label th:if="${elev.id!=null}" class="text-color" style="margin-top: 10px">Puncte</label>
+                    <input th:field="*{puncte}" th:value="0" th:type="${elev.id!=null} ? number : hidden"><br/>
+                    <input type="submit" class="btn btn-outline-secondary" value="Creaza" style="margin-bottom: 10px">
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+<footer th:insert="fragments/footer :: footer" ></footer>
+</body>
+</html>

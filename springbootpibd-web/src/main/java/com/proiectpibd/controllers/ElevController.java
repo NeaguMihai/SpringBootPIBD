@@ -1,0 +1,109 @@
+package com.proiectpibd.controllers;
+
+import com.neagumihai.proiectpibddata.decorators.StatusWraper;
+import com.neagumihai.proiectpibddata.model.Elev;
+import com.neagumihai.proiectpibddata.service.ElevService;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+@RequestMapping("/elev")
+public class ElevController {
+
+    private final ElevService elevService;
+
+    public ElevController(ElevService elevservice) {
+        this.elevService = elevservice;
+    }
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }
+    @GetMapping({"","/","index"})
+    public String searchAll(Model model) {
+
+        model.addAttribute("elev", new Elev());
+        model.addAttribute("search", false);
+        return "elev/index";
+    }
+
+    @GetMapping({"/search"})
+    public String afterSarch(Model model,
+                             @ModelAttribute Elev elev,
+                             @RequestParam(name = "date", required = false) String date) throws ParseException {
+        elev = modifyObject(elev);
+        elev.setDataNastere(dateParse(date));
+        List<Elev> elevList = elevService.getBySelects(elev);
+        model.addAttribute("elevi", elevList);
+        model.addAttribute("search", true);
+        return "elev/index";
+    }
+
+    @GetMapping({"/{id}/update"})
+    public String updateElec(@PathVariable Integer id, Model model) {
+        Optional<Elev> returnedElev  =elevService.getById(id);
+
+        if (returnedElev.isPresent()) {
+            model.addAttribute("elev", returnedElev.get());
+            return "elev/elevCreateUpdateForm";
+        }else {
+            return "redirect:elev/index";
+        }
+    }
+
+    @PostMapping("/save")
+    public String salveazaElev(@ModelAttribute Elev elev,
+                               final RedirectAttributes redirectAttributes,
+                                @RequestParam(name = "date",required = false) String date) throws ParseException {
+        elev = modifyObject(elev);
+
+        elev.setDataNastere(dateParse(date));
+        StatusWraper<Boolean> status = new StatusWraper<>();
+        status.setStatus(elevService.saveElev(elev));
+
+        redirectAttributes.addAttribute("status", status.isStatus());
+        return "redirect:/notif";
+    }
+    @GetMapping({"/{id}/delete"})
+    public String stergeElev(@PathVariable Integer id) {
+        elevService.deleteById(id);
+        return "redirect:/elev/";
+    }
+
+    @GetMapping("/creaza")
+    public String creazaElev(Model model) {
+        model.addAttribute("elev", new Elev());
+        return "elev/elevCreateUpdateForm";
+    }
+
+    private Date dateParse(String string) throws ParseException {
+        if(string.equalsIgnoreCase(""))
+            return null;
+        java.util.Date dataJava =  new SimpleDateFormat("dd-MM-yyyy").parse(string);
+        return new Date(dataJava.getTime());
+    }
+
+    private Elev modifyObject(Elev elev) {
+        if (elev.getScoala().equalsIgnoreCase(""))
+            elev.setScoala(null);
+        if (elev.getPrenume().equalsIgnoreCase(""))
+            elev.setPrenume(null);
+        if (elev.getNume().equalsIgnoreCase(""))
+            elev.setNume(null);
+        if (elev.getClasa().equalsIgnoreCase(""))
+            elev.setClasa(null);
+        return elev;
+    }
+}

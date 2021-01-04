@@ -62,6 +62,9 @@ body {
 .space-5 {
     margin-top: 5rem;
 }
+.space-1 {
+    margin-top: 1rem;
+}
 
 .btn-outline-secondary  {
     color: #05386B;

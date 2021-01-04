@@ -3,14 +3,17 @@ package com.neagumihai.proiectpibddata.service;
 import com.neagumihai.proiectpibddata.model.Tema;
 import com.neagumihai.proiectpibddata.repositories.TemaRepository;
 import com.neagumihai.proiectpibddata.repositories.TemaSearcherRepository;
+import com.neagumihai.proiectpibddata.repositories.TemaSearcherRepositoryImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TemaServiceImpl implements TemaService{
 
     private final TemaRepository temaRepository;
+
 
     private final TemaSearcherRepository searcherRepository;
 
@@ -23,7 +26,6 @@ public class TemaServiceImpl implements TemaService{
     public boolean saveTema(Tema tema) {
         Tema searchTema = new Tema();
         searchTema.setNumarTema(tema.getNumarTema());
-        searchTema.setNumeTema(tema.getNumeTema());
         searchTema.setNumeCulegere(tema.getNumeCulegere());
 
         if (getBySelects(searchTema).size() == 0) {
@@ -55,5 +57,10 @@ public class TemaServiceImpl implements TemaService{
         tema.setId(id);
 
         return temaRepository.save(tema);
+    }
+
+    @Override
+    public Optional<Tema> getById(Integer id) {
+        return temaRepository.findById(id);
     }
 }

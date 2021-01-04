@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ElevServiceImpl implements ElevService{
@@ -58,5 +59,10 @@ public class ElevServiceImpl implements ElevService{
         elev.setId(id);
 
         return elevRepository.save(elev);
+    }
+
+    @Override
+    public Optional<Elev> getById(Integer id) {
+        return elevRepository.findById(id);
     }
 }
