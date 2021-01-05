@@ -97,3 +97,7 @@ body {
     color: #05386B;
     font-size: 1.5rem;
 }
+
+.insideFrame {
+    overflow: scroll;
+}

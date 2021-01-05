@@ -6,7 +6,11 @@ import com.neagumihai.proiectpibddata.model.Tema;
 import com.neagumihai.proiectpibddata.repositories.ElevRepository;
 import com.neagumihai.proiectpibddata.repositories.ElevTemaRepository;
 import com.neagumihai.proiectpibddata.repositories.TemaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 import java.util.List;
@@ -26,6 +30,7 @@ public class ElevTemaServiceImpl implements ElevTemaService {
         this.temaRepository = temaRepository;
     }
 
+    @Transactional
     @Override
     public boolean saveTema(ElevTema elevTema) {
 
@@ -49,12 +54,14 @@ public class ElevTemaServiceImpl implements ElevTemaService {
         }
     }
 
+    @Transactional
     @Override
-    public List<ElevTema> getAll(Integer offset, Integer limit) {
+    public Page<ElevTema> getAll(Pageable pageable) {
 
-        return elevTemaRepository.getAll(offset, limit);
+        return elevTemaRepository.getAll(pageable);
     }
 
+    @Transactional
     @Override
     public void deleteElevTema(ElevTema elevTema) {
 
@@ -68,13 +75,35 @@ public class ElevTemaServiceImpl implements ElevTemaService {
         }
     }
 
+    @Transactional
     @Override
     public ElevTema updateElevTema(ElevTema elevTema) {
-        return elevTemaRepository.save(elevTema);
+        if (elevTemaRepository.update(elevTema.getLink_tema(), elevTema.getIdElev(), elevTema.getIdTema())==1)
+            return elevTema;
+        return new ElevTema();
     }
 
+    @Transactional
     @Override
     public List<ElevTema> getByIdElev(Integer id) {
         return elevTemaRepository.findByIdElev(id);
+    }
+
+    @Transactional
+    @Override
+    public List<ElevTema> getByIdTema(Integer id) {
+        return elevTemaRepository.findByIdTema(id);
+    }
+
+    @Transactional
+    @Override
+    public List<Integer> getAllIdsTeme(Integer id) {
+        return elevTemaRepository.getAllIdTeme(id);
+    }
+
+    @Transactional
+    @Override
+    public Optional<ElevTema> findByIdElevAndIdTema(Integer idElev, Integer idTema) {
+        return elevTemaRepository.findAllByIdElevAndIdTema(idElev, idTema);
     }
 }

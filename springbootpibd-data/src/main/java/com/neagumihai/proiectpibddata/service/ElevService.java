@@ -1,6 +1,8 @@
 package com.neagumihai.proiectpibddata.service;
 
 import com.neagumihai.proiectpibddata.model.Elev;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +12,7 @@ public interface ElevService {
 
     boolean saveElev(Elev elev);
 
-    List<Elev> getAll(Integer hLimit, Integer lLimit);
+    Page<Elev> getAll(Pageable pageable);
 
     List<Elev> getBySelects(Elev elev);
 

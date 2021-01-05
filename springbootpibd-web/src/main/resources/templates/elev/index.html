@@ -10,73 +10,7 @@
 
     <div th:if="${!search}" th:insert="fragments/imports :: searchElev"></div>
 
-    <div class="container space-5">
-        <div class="container space-5 gradient-bg" style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="elev : ${elevi}">
-            <div class="row space-1">
-                <div class="col ">
-                    <a th:href="@{'/elev/' + ${elev.getId()} + '/delete'}">
-                        <button class="btn btn-outline-secondary" >Sterge elev</button>
-                    </a>
-                </div>
-                <div class="col">
-                    <a th:href="@{'/elev/' + ${elev.getId()} + '/update'}">
-                        <button class="btn btn-outline-secondary" >Modifica elev</button>
-                    </a>
-                </div>
-                <div class="col">
-                    <a th:href="@{'/elev/' + ${elev.getId()} + '/info'}">
-                        <button class="btn btn-outline-secondary" >Informatii elev</button>
-                    </a>
-                </div>
-            </div>
-
-        <div class="row space-1">
-            <div class="col">
-                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume: </h1>
-            </div>
-            <div class="col">
-                <h1 class="font-weight-bold text-color" th:text="${elev.nume}" style="font-size: 1.5rem">Nume: </h1>
-            </div>
-            <div class="col">
-                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Prenume: </h1>
-            </div>
-            <div class="col">
-                <h1 class="font-weight-bold text-color" th:text="${elev.prenume}" style="font-size: 1.5rem">Prenume: </h1>
-            </div>
-
-        </div>
-        <div class="row space-1">
-            <div class="col">
-                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Data Nastere: </h1>
-            </div>
-            <div class="col">
-                <h1 class="font-weight-bold text-color" th:text="${#dates.format(elev.dataNastere, 'dd-MM-yyyy')}" style="font-size: 1.5rem">Nume: </h1>
-            </div>
-            <div class="col">
-                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Clasa: </h1>
-            </div>
-            <div class="col">
-                <h1 class="font-weight-bold text-color" th:text="${elev.clasa}" style="font-size: 1.5rem">Nume: </h1>
-            </div>
-        </div>
-        <div class="row space-1">
-            <div class="col">
-                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Scoala: </h1>
-            </div>
-            <div class="col">
-                <h1 class="font-weight-bold text-color" th:text="${elev.scoala}" style="font-size: 1.5rem">Nume: </h1>
-            </div>
-        </div>
-        <div class="row space-1">
-            <div class="col">
-                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Puncte: </h1>
-            </div>
-            <div class="col">
-                <h1 class="font-weight-bold text-color" th:text="${elev.puncte}" style="font-size: 1.5rem">Nume: </h1>
-            </div>
-        </div>
-        </div>
-    </div>
+    <div th:insert="fragments/imports :: casetaElev"></div>
 
     <footer th:insert="fragments/footer :: footer"></footer>
 </body>

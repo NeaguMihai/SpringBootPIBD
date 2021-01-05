@@ -17,7 +17,7 @@ public class IndexController {
     }
 
     @RequestMapping({"/notif"})
-    public String Result(@ModelAttribute StatusWraper<Boolean> status, Model model) {
+    public String Result(@ModelAttribute("status") StatusWraper<Boolean> status, Model model) {
 
         model.addAttribute("status",status.isStatus());
         return "saveOrUpdateResult";

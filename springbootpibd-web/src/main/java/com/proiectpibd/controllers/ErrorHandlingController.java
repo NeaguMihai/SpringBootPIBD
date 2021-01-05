@@ -13,4 +13,9 @@ public class ErrorHandlingController {
     public String error404(){
         return "error/404";
     }
+
+    @ExceptionHandler(value = Error.class)
+    public String error500() {
+        return "error/500";
+    }
 }

@@ -3,6 +3,8 @@ package com.neagumihai.proiectpibddata.service;
 import com.neagumihai.proiectpibddata.model.Elev;
 import com.neagumihai.proiectpibddata.repositories.ElevRepository;
 import com.neagumihai.proiectpibddata.repositories.ElevSearcherRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,10 +16,13 @@ public class ElevServiceImpl implements ElevService{
 
     private final ElevRepository elevRepository;
 
+    private final ElevTemaService elevTemaService;
+
     private final ElevSearcherRepository searcherRepository;
 
-    public ElevServiceImpl(ElevRepository elevRepository, ElevSearcherRepository searcherRepository) {
+    public ElevServiceImpl(ElevRepository elevRepository, ElevTemaService elevTemaService, ElevSearcherRepository searcherRepository) {
         this.elevRepository = elevRepository;
+        this.elevTemaService = elevTemaService;
         this.searcherRepository = searcherRepository;
     }
 
@@ -35,8 +40,8 @@ public class ElevServiceImpl implements ElevService{
 
     @Transactional
     @Override
-    public List<Elev> getAll(Integer offset, Integer limit) {
-        return elevRepository.getAllByLimit(offset, limit);
+    public Page<Elev> getAll(Pageable pageable) {
+        return elevRepository.getAllByLimit(pageable);
     }
 
     @Transactional
@@ -48,6 +53,8 @@ public class ElevServiceImpl implements ElevService{
     @Transactional
     @Override
     public void deleteById(Integer id) {
+
+        elevTemaService.getByIdElev(id).forEach(elevTemaService::deleteElevTema);
 
         elevRepository.deleteById(id);
     }

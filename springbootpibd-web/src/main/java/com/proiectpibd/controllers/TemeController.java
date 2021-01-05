@@ -1,14 +1,21 @@
 package com.proiectpibd.controllers;
 
 import com.neagumihai.proiectpibddata.decorators.StatusWraper;
+import com.neagumihai.proiectpibddata.model.ElevTema;
 import com.neagumihai.proiectpibddata.model.Tema;
 import com.neagumihai.proiectpibddata.service.TemaService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -49,7 +56,7 @@ public class TemeController {
             model.addAttribute("offset", newOffset);
         }
 
-        model.addAttribute("teme", temaService.getAll((newOffset - 1) *10, 10));
+        model.addAttribute("teme", temaService.getAll(PageRequest.of(newOffset-1, 10)));
         model.addAttribute("search", false);
         return "teme/index";
     }
@@ -61,8 +68,13 @@ public class TemeController {
     }
 
     @PostMapping("/save")
-    public String saveOrUpdate(@ModelAttribute Tema tema,
-                               final RedirectAttributes redirectAttributes) {
+    public String saveOrUpdate(@Valid @ModelAttribute("tema")  Tema tema,
+                               BindingResult bind,
+                               RedirectAttributes redirectAttributes) {
+        if (bind.hasErrors()) {
+
+            return "teme/" + TEMACREATEUPDATEFORM;
+        }
         StatusWraper<Boolean> status = new StatusWraper<>();
         status.setStatus(temaService.saveTema(tema));
 
