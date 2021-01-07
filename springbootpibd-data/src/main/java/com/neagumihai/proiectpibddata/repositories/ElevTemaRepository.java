@@ -42,4 +42,7 @@ public interface ElevTemaRepository extends JpaRepository<ElevTema, ElevTemaId> 
     @Query(value = "UPDATE ElevTema et SET et.link_tema = :lt WHERE et.idElev = :ie AND et.idTema = :it" )
     Integer update(@Param("lt") String link,@Param("ie") Integer idElev,@Param("it") Integer idTema);
 
+    @Transactional
+    @Query(value = "SELECT elev.nume, elev.prenume, elev.clasa, elev.scoala, GROUP_CONCAT(tema.nume_tema SEPARATOR ' ') FROM elev JOIN elev_tema ON elev.id = elev_tema.id_elev JOIN tema ON tema.id = elev_tema.id_tema GROUP BY elev.id", nativeQuery = true)
+    List<Object[]> joinSelect();
 }

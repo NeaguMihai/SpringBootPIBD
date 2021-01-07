@@ -1,6 +1,7 @@
 package com.neagumihai.proiectpibddata.service;
 
 import com.neagumihai.proiectpibddata.model.Elev;
+import com.neagumihai.proiectpibddata.model.Tema;
 import com.neagumihai.proiectpibddata.repositories.ElevRepository;
 import com.neagumihai.proiectpibddata.repositories.ElevSearcherRepository;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -72,4 +74,6 @@ public class ElevServiceImpl implements ElevService{
     public Optional<Elev> getById(Integer id) {
         return elevRepository.findById(id);
     }
+
+
 }

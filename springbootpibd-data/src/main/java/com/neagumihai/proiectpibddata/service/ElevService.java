@@ -1,10 +1,12 @@
 package com.neagumihai.proiectpibddata.service;
 
 import com.neagumihai.proiectpibddata.model.Elev;
+import com.neagumihai.proiectpibddata.model.Tema;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -21,5 +23,6 @@ public interface ElevService {
     Elev updateById(Integer id, Elev elev);
 
     Optional<Elev> getById(Integer id);
+
 
 }

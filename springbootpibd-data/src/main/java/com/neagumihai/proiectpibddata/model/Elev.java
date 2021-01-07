@@ -2,8 +2,6 @@ package com.neagumihai.proiectpibddata.model;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
-import org.springframework.lang.NonNull;
 
 
 import javax.persistence.*;
@@ -40,8 +38,9 @@ public class Elev {
     private Date dataNastere;
 
     @NotBlank(message = "Campul clasa nu poate fi gol")
-    @Size(min = 2, max = 5, message = "clasa trebuie sa contona intre 2 si 5 caractere")
+    @Size(min = 1, max = 5, message = "clasa trebuie sa contona intre 2 si 5 caractere")
     @Column(name = "clasa")
+    @Pattern(regexp = "^[A-Za-z]{2}")
     private String clasa;
 
     @NotBlank(message = "Campul scoala nu poate fi gol")

@@ -8,6 +8,10 @@
 
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<!--    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>-->
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script th:src="@{/js/functions.js}"></script>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link th:rel="stylesheet" th:href="@{/css/custom-util.css}">
@@ -70,7 +74,7 @@
 <div class="container" th:classappend="${#httpServletRequest.getRequestURI().contains('elev')} ? 'space-5' : ''" th:fragment="casetaElev">
     <div class="container gradient-bg"
          th:classappend="${#httpServletRequest.getRequestURI().contains('elev')} ? 'space-5' : ''"
-         style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="elev : ${elevi}">
+         style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="elev : ${elevi}" >
         <div class="row space-1">
             <div class="col ">
                 <a th:href="@{'/elev/' + ${elev.getId()} + '/delete'}">
@@ -93,7 +97,7 @@
                 </a>
             </div>
         </div>
-
+        <hr>
         <div class="row space-1">
             <div class="col">
                 <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume: </h1>
@@ -109,35 +113,44 @@
             </div>
 
         </div>
+        <hr>
         <div class="row space-1">
-            <div class="col">
+            <div class="col" th:if="${elev.dataNastere}">
                 <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Data Nastere: </h1>
             </div>
-            <div class="col">
+            <div class="col" th:if="${elev.dataNastere}">
                 <h1 class="font-weight-bold text-color" th:text="${#dates.format(elev.dataNastere, 'dd-MM-yyyy')}" style="font-size: 1.5rem">Nume: </h1>
             </div>
-            <div class="col">
+
+            <div  th:class="${elev.dataNastere}? 'col' : 'col-3'">
                 <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Clasa: </h1>
             </div>
             <div class="col">
                 <h1 class="font-weight-bold text-color" th:text="${elev.clasa}" style="font-size: 1.5rem">Nume: </h1>
             </div>
+            <div class="col" th:if="${#httpServletRequest.getRequestURI().contains('join')}">
+                <div class="btn-group">
+                    <button type="button" id="dropdown-join" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu" th:each="{}">
+                        <p class="dropdown-item"></p>
+                    </div>
+                </div>
+            </div>
         </div>
+        <hr>
         <div class="row space-1">
-            <div class="col">
+            <div th:class="${elev.dataNastere}? 'col' : 'col-3'">
                 <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Scoala: </h1>
             </div>
             <div class="col">
                 <h1 class="font-weight-bold text-color" th:text="${elev.scoala}" style="font-size: 1.5rem">Nume: </h1>
             </div>
-            <div class="col">
 
-            </div>
-            <div class="col">
-
-            </div>
         </div>
-        <div class="row space-1">
+        <hr>
+        <div class="row space-1" th:if="${elev.puncte}">
             <div class="col">
                 <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Puncte: </h1>
             </div>
@@ -145,8 +158,65 @@
                 <h1 class="font-weight-bold text-color" th:text="${elev.puncte}" style="font-size: 1.5rem">Nume: </h1>
             </div>
         </div>
+
     </div>
 </div>
+
+<!--Caseta join-->
+
+<div class="container "  th:fragment="casetaJoin">
+    <div class="container gradient-bg space-5"
+         style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="pair, index : ${mapa}" >
+        <div class="row space-1">
+            <div class="col">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${pair.key.nume}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Prenume: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${pair.key.prenume}" style="font-size: 1.5rem">Prenume: </h1>
+            </div>
+
+        </div>
+        <hr>
+        <div class="row space-1">
+            <div  class="col-3">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Clasa: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${pair.key.clasa}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+            <div class="col" >
+                <div class="btn-group">
+                    <button type="button" id="dropdown-join" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Action
+                    </button>
+                    <div class="dropdown-menu" >
+                        <a class="dropdown-item" th:each="tema : ${pair.value}" th:text="${tema.numeTema}"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row space-1">
+            <div class="col-3">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Scoala: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${pair.key.scoala}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+
+        </div>
+        <hr>
+
+    </div>
+</div>
+
 
 <!--Caseta tema fara pack-->
 <div class="container space-5 gradient-bg" style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="tema : ${teme}" th:fragment="containerTeme">

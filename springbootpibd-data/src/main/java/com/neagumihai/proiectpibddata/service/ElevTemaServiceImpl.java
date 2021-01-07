@@ -11,9 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
-
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ElevTemaServiceImpl implements ElevTemaService {
@@ -105,5 +104,31 @@ public class ElevTemaServiceImpl implements ElevTemaService {
     @Override
     public Optional<ElevTema> findByIdElevAndIdTema(Integer idElev, Integer idTema) {
         return elevTemaRepository.findAllByIdElevAndIdTema(idElev, idTema);
+    }
+
+    @Transactional
+    @Override
+    public Map<Elev, List<Tema>> JoinSelect() {
+        List<Object[]> resultSet = elevTemaRepository.joinSelect();
+
+        Map<Elev, List<Tema>> returner = new HashMap<>();
+        resultSet.forEach(e -> {
+            Elev elev =  new Elev();
+            elev.setNume(e[0].toString());
+            elev.setPrenume(e[1].toString());
+            elev.setClasa(e[2].toString());
+            elev.setScoala(e[3].toString());
+            String[] tok = e[4].toString().split(" ");
+
+            List<Tema> teme = Arrays.stream(tok).map(s -> {
+                Tema t = new Tema();
+                t.setNumeTema(s);
+                return t;
+            }).collect(Collectors.toList());
+
+            returner.put(elev, teme);
+        });
+
+        return returner;
     }
 }

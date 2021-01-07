@@ -28,14 +28,16 @@ public class TemaServiceImpl implements TemaService{
 
     @Override
     public boolean saveTema(Tema tema) {
+
         Tema searchTema = new Tema();
         searchTema.setNumarTema(tema.getNumarTema());
         searchTema.setNumeCulegere(tema.getNumeCulegere());
 
-        if (getBySelects(searchTema).size() == 0) {
+        if (getBySelects(searchTema).size() == 0 || (getBySelects(searchTema).size() == 1 && tema.getId() != null)) {
             temaRepository.save(tema);
             return true;
         }else {
+
             return false;
         }
     }

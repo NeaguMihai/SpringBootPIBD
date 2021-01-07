@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping({"/informatii"})
@@ -112,6 +113,17 @@ public class ElevTemeController {
         elevTemaService.saveTema(elevTema);
         model.addAttribute("status", true);
         return "redirect:/informatii/"+id+"/inf0";
+    }
+
+    @GetMapping("/join")
+    public String Join(Model model) {
+        Map<Elev, List<Tema>> elevListMap = elevTemaService.JoinSelect();
+
+
+
+        model.addAttribute("mapa",elevListMap);
+
+        return "/informatii/joinSelect";
     }
 
     @GetMapping("/{id}/inf0/{idTema}/update")

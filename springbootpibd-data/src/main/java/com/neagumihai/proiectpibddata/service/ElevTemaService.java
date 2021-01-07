@@ -1,10 +1,13 @@
 package com.neagumihai.proiectpibddata.service;
 
+import com.neagumihai.proiectpibddata.model.Elev;
 import com.neagumihai.proiectpibddata.model.ElevTema;
+import com.neagumihai.proiectpibddata.model.Tema;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface ElevTemaService {
@@ -24,4 +27,7 @@ public interface ElevTemaService {
     List<Integer> getAllIdsTeme(Integer id);
 
     Optional<ElevTema> findByIdElevAndIdTema(Integer idElev, Integer idTema);
+
+    Map<Elev, List<Tema>> JoinSelect();
+
 }
