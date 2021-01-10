@@ -40,7 +40,7 @@ public class Elev {
     @NotBlank(message = "Campul clasa nu poate fi gol")
     @Size(min = 1, max = 5, message = "clasa trebuie sa contona intre 2 si 5 caractere")
     @Column(name = "clasa")
-    @Pattern(regexp = "^[A-Za-z]{2}")
+    @Pattern(regexp = "(^[1-9][A-Z]{1}$|(^[1][0-9][A-Z]{1}$))", message = "Introdu clasa sub forma : 13F, 5C, etc.")
     private String clasa;
 
     @NotBlank(message = "Campul scoala nu poate fi gol")

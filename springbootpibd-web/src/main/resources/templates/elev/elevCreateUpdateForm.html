@@ -43,7 +43,7 @@
                         <div class="container-fluid" th:if="${#fields.hasErrors('dataNastere')}">
                             <div class="row" th:each="err : ${#fields.errors('dataNastere')}">
                                 <div class="col">
-                                    <span th:text="${err}" class="text-danger"></span><br>
+                                    <span  th:text="${err.length() > 60} ? 'Introduceti o data valida de forma dd-MM-yyyy': ${err}" class="text-danger"></span><br>
                                 </div>
                             </div>
                         </div>
