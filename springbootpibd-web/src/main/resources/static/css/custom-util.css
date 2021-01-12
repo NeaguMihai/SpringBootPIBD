@@ -1,0 +1,107 @@
+
+.navbar {
+    transition: all 0.4s;
+}
+
+.navbar .nav-link {
+    color: #05386B;
+}
+
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: #05386B;
+    text-decoration: none;
+}
+
+.navbar .navbar-brand {
+    color: #05386B;
+}
+
+.navbar.active {
+    background: #379683;
+}
+
+.navbar.active .nav-link {
+    color: #05386B;
+}
+
+.navbar.active .nav-link:hover,
+.navbar.active .nav-link:focus {
+    color: #05386B;
+    text-decoration: none;
+}
+
+.navbar.active .navbar-brand {
+    color: #05386B;
+}
+.text-small {
+    font-size: 1rem !important;
+}
+
+
+body {
+    min-height: 110vh;
+    background: #5CDB95;
+    background: linear-gradient(167deg, rgba(92,219,149,1) 0%, rgba(237,245,225,1) 100%);
+}
+
+.gradient-bg {
+    background: #5CDB95;
+    background: linear-gradient(167deg, rgba(92,219,149,1) 0%, rgba(237,245,225,1) 100%);
+}
+
+.text-color {
+    color: #05386B;
+}
+
+.space-10 {
+    margin-top: 10rem;
+}
+
+.space-5 {
+    margin-top: 5rem;
+}
+.space-1 {
+    margin-top: 1rem;
+}
+
+.btn-outline-secondary  {
+    color: #05386B;
+    border: 2px solid #05386B;
+}
+
+.btn-outline-primary  {
+    color: #05386B;
+    background-color: transparent;
+    border: 0px;
+}
+
+
+.btn-outline-secondary:hover, .btn-outline-secondary:active, .btn-outline-secondary:visited {
+    color: rgba(237,245,225,1);
+    background-color: #05386B !important;
+    border: 2px solid #05386B;
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited {
+    color: rgba(237,245,225,1);
+    background-color: transparent !important;
+    border: 0px;
+}
+
+.next-number {
+    background-color: transparent;
+    border: 0px;
+    width: 30px;
+    color: #05386B;
+    font-size: 1.5rem;
+}
+
+.insideFrame {
+    overflow: scroll;
+}
+
+#dropdown-join {
+    background-color: #379683;
+}

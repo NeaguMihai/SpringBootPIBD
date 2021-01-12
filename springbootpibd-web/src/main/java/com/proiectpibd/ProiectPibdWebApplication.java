@@ -8,7 +8,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = {"com.neagumihai.proiectpibddata.service",
-											"com.proiectpibd"})
+											"com.neagumihai.proiectpibddata.repositories",
+											"com.proiectpibd",
+											"com.proiectpibd.config"})
 @EnableJpaRepositories(basePackages = {"com.neagumihai.proiectpibddata.repositories"})
 @EntityScan(basePackages = {"com.neagumihai.proiectpibddata.model"})
 public class ProiectPibdWebApplication{

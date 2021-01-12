@@ -1,19 +1,21 @@
 package com.neagumihai.proiectpibddata.repositories;
 
 import com.neagumihai.proiectpibddata.model.Tema;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-@Repository
-public class TemaSearcherRepositoryImpl implements SearcherRepository<Tema> {
+@Repository("temaSearcherRepository")
+@Qualifier("temaSearcherRepository")
+public class TemaSearcherRepositoryImpl implements TemaSearcherRepository {
 
     private final EntityManager em;
 
@@ -23,32 +25,52 @@ public class TemaSearcherRepositoryImpl implements SearcherRepository<Tema> {
 
     @Override
     public List<Tema> getFiltering(Tema model) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Tema> cq = cb.createQuery(Tema.class);
-
-        Root<Tema> elev = cq.from(Tema.class);
-
-        List<Predicate> predicates = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        String initial = "SELECT t FROM Tema t WHERE ";
+        sb.append(initial);
+        Map<String, Object> params = new HashMap<>();
 
         if(model.getCerintaTema() != null) {
-            predicates.add(cb.equal(elev.get("cerintaTema"), model.getCerintaTema()));
+            sb.append("t.cerintaTema = : cerT");
+            params.put("cerT", model.getCerintaTema());
+
         }
         if(model.getNumarTema() != null) {
-            predicates.add(cb.equal(elev.get("numarTema"), model.getNumarTema()));
+            if(!params.isEmpty())
+                sb.append(" AND ");
+            sb.append(" t.numarTema = :numT");
+            params.put("numT", model.getNumarTema());
+        }
+        if(model.getNumeCulegere() != null) {
+            if(!params.isEmpty())
+                sb.append(" AND ");
+            sb.append(" t.numeCulegere = : numC");
+            params.put("numC", model.getNumeCulegere());
         }
         if(model.getNumeTema() != null) {
-            predicates.add(cb.equal(elev.get("numeTema"), model.getNumeTema()));
+            if(!params.isEmpty())
+                sb.append(" AND ");
+            sb.append(" t.numeTema = : numeT");
+            params.put("numeT", model.getNumeTema());
         }
         if(model.getDificultate() != null) {
-            predicates.add(cb.equal(elev.get("dificiltate"), model.getDificultate()));
+            if(!params.isEmpty())
+                sb.append(" AND ");
+            sb.append(" t.dificultate = : dif");
+            params.put("dif", model.getDificultate());
         }
         if (model.getPuncte() != null) {
-            predicates.add(cb.equal(elev.get("puncte"), model.getPuncte()));
+            if(!params.isEmpty())
+                sb.append(" AND ");
+            sb.append(" t.puncte = : pct");
+            params.put("pct", model.getPuncte());
         }
-
-        cq.where(predicates.toArray(new Predicate[0]));
-
-        return em.createQuery(cq).getResultList();
+        if(sb.toString().equalsIgnoreCase(initial)) {
+            return Collections.emptyList();
+        }
+        TypedQuery<Tema> query = em.createQuery(sb.toString(), Tema.class);
+        params.forEach(query::setParameter);
+        return query.getResultList();
     }
 
 }

@@ -84,4 +84,6 @@ public class ElevTema {
     public int hashCode() {
         return Objects.hash(idElev, idTema);
     }
+
+
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/imports :: include">
+
+
+</head>
+<body>
+    <nav th:insert="fragments/imports :: navbar"></nav>
+
+    <div th:if="${!search}" th:insert="fragments/imports :: searchElev"></div>
+
+    <div th:insert="fragments/imports :: casetaElev"></div>
+
+    <footer th:insert="fragments/footer :: footer"></footer>
+</body>
+</html>

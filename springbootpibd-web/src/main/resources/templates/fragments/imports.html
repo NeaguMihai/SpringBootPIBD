@@ -5,20 +5,353 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Aplicatia PIBD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--    <script src="https://code.jquery.com/jquery-3.5.1.min.js"-->
-<!--            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="-->
-<!--            crossorigin="anonymous"></script>-->
-<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
-<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
 
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<!--    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>-->
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script th:src="@{/js/functions.js}"></script>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/custom-util.css}">
 
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<body  >
+<!--navbar-->
 
+<nav class="navbar navbar-expand-lg fixed-top py-3" th:fragment="navbar">
+    <div class="container" >
+        <a class="navbar-brand text-uppercase font-weight-bold" href="#" th:href="@{${#httpServletRequest.requestURI.toString()}}">TemaPedia</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teme">Toate temele</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/elev">Elevi</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
+
+<!--form pentru cautare elevi-->
+
+<div class="container space-10" style="text-align: center" th:fragment="searchElev">
+    <!-- @thymesVar id="tema" type="com.neagumihai.proiectpibddata.model.Elev"-->
+
+    <form th:action="@{'/elev/search'}" th:object="${elev}" method="get" >
+        <input type="text" class="form-control space-1" th:field="*{nume}" placeholder="Nume">
+        <input type="text" class="form-control space-1" th:field="*{prenume}" placeholder="Prenume">
+        <input type="text" class="form-control space-1" th:field="*{dataNastere}" placeholder="Data Nastere(dd-MM-yyy)">
+        <input type="text" class="form-control space-1" th:field="*{clasa}" placeholder="Clasa">
+        <input type="number" class="form-control space-1" th:field="*{puncte}" placeholder="Puncte">
+        <input type="text" class="form-control space-1" th:field="*{scoala}" placeholder="Scoala">
+        <input type="submit" class="btn btn-outline-secondary space-1" value="Cauta">
+    </form>
+</div>
+
+<!--Butoane stanga dreapta-->
+<div class="row justify-content-center" th:fragment="nextPage">
+    <div class="d-flex flex-row mb-3 text-color">
+        <form th:action="@{${#httpServletRequest.getRequestURI().contains('teme')}? '/teme?offset='+${offset} : ${#httpServletRequest.getRequestURI()} +'?offset=' +${offset} }" >
+            <button type="submit" name="action" value="left" class="p2 btn btn-outline-primary"><</button>
+            <input type="text" class="p-2 next-number" th:value="${offset}" th:name="offset"/>
+            <button type="submit" name="action" value="right" class="p2 btn btn-outline-primary">></button>
+        </form>
+    </div>
+</div>
+
+<!--Caseta elevi-->
+
+<div class="container" th:classappend="${#httpServletRequest.getRequestURI().contains('elev')} ? 'space-5' : ''" th:fragment="casetaElev">
+    <div class="container gradient-bg"
+         th:classappend="${#httpServletRequest.getRequestURI().contains('elev')} ? 'space-5' : ''"
+         style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="elev : ${elevi}" >
+        <div class="row space-1">
+            <div class="col ">
+                <a th:href="@{'/elev/' + ${elev.getId()} + '/delete'}">
+                    <button class="btn btn-outline-secondary" >Sterge elev</button>
+                </a>
+            </div>
+            <div class="col">
+                <a th:href="@{'/elev/' + ${elev.getId()} + '/update'}">
+                    <button class="btn btn-outline-secondary" >Modifica elev</button>
+                </a>
+            </div>
+            <div class="col" th:if="${#httpServletRequest.getRequestURI().contains('elev')}">
+                <a th:href="@{'/informatii/' + ${elev.getId()} + '/inf0'}">
+                    <button class="btn btn-outline-secondary" >Informatii elev</button>
+                </a>
+            </div>
+            <div class="col" th:if="${#httpServletRequest.getRequestURI().contains('informatii') && !#httpServletRequest.getRequestURI().contains('adauga')}">
+                <a th:href="@{'/informatii/' + ${elev.getId()} + '/adauga'}">
+                    <button class="btn btn-outline-secondary" >Adauga o noua tema</button>
+                </a>
+            </div>
+        </div>
+        <hr>
+        <div class="row space-1">
+            <div class="col">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${elev.nume}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Prenume: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${elev.prenume}" style="font-size: 1.5rem">Prenume: </h1>
+            </div>
+
+        </div>
+        <hr>
+        <div class="row space-1">
+            <div class="col" th:if="${elev.dataNastere}">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Data Nastere: </h1>
+            </div>
+            <div class="col" th:if="${elev.dataNastere}">
+                <h1 class="font-weight-bold text-color" th:text="${#dates.format(elev.dataNastere, 'dd-MM-yyyy')}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+
+            <div  th:class="${elev.dataNastere}? 'col' : 'col-3'">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Clasa: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${elev.clasa}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+            <div class="col" th:if="${#httpServletRequest.getRequestURI().contains('join')}">
+                <div class="btn-group">
+                    <button type="button" id="dropdown-join" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu" th:each="{}">
+                        <p class="dropdown-item"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row space-1">
+            <div th:class="${elev.dataNastere}? 'col' : 'col-3'">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Scoala: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${elev.scoala}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+
+        </div>
+        <hr>
+        <div class="row space-1" th:if="${elev.puncte}">
+            <div class="col">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Puncte: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${elev.puncte}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Caseta join-->
+
+<div class="container "  th:fragment="casetaJoin">
+    <div class="container gradient-bg space-5"
+         style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="pair, index : ${mapa}" >
+        <div class="row space-1">
+            <div class="col">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${pair.key.nume}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Prenume: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${pair.key.prenume}" style="font-size: 1.5rem">Prenume: </h1>
+            </div>
+
+        </div>
+        <hr>
+        <div class="row space-1">
+            <div  class="col-3">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Clasa: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${pair.key.clasa}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+            <div class="col" >
+                <div class="btn-group">
+                    <button type="button" id="dropdown-join" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Action
+                    </button>
+                    <div class="dropdown-menu" >
+                        <a class="dropdown-item" th:each="tema : ${pair.value}" th:text="${tema.numeTema}"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row space-1">
+            <div class="col-3">
+                <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Scoala: </h1>
+            </div>
+            <div class="col">
+                <h1 class="font-weight-bold text-color" th:text="${pair.key.scoala}" style="font-size: 1.5rem">Nume: </h1>
+            </div>
+
+        </div>
+        <hr>
+
+    </div>
+</div>
+
+
+<!--Caseta tema fara pack-->
+<div class="container space-5 gradient-bg" style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="tema : ${teme}" th:fragment="containerTeme">
+
+    <div class="row">
+        <div class="col " th:if="${#httpServletRequest.getRequestURI().contains('adauga')}">
+            <a th:href="@{${#httpServletRequest.getRequestURI()} + '/' + ${tema.getId()}}">
+                <button class="btn btn-outline-secondary" >Adauga elevului</button>
+            </a>
+        </div>
+        <div class="col " th:if="${#httpServletRequest.getRequestURI().contains('teme')}">
+            <a th:href="@{'/teme/' + ${tema.getId()} + '/delete'}">
+                <button class="btn btn-outline-secondary" >Sterge tema</button>
+            </a>
+        </div>
+        <div class="col" th:if="${#httpServletRequest.getRequestURI().contains('teme')}">
+            <a th:href="@{'/teme/' + ${tema.getId()} + '/update'}">
+                <button class="btn btn-outline-secondary" >Modifica tema</button>
+            </a>
+        </div>
+
+    </div>
+    <div class="row" >
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume: </h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem" th:text="${tema.numeTema}">nume1</h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume Culegere: </h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem" th:text="${tema.numeCulegere}">Nume cul1</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Numarul Temei:</h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem" th:text="${tema.numarTema}">1</h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Dificultate: </h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem" th:text="${tema.dificultate}">Imposibil</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center">Descriere: </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center" th:text="${tema.cerintaTema}">asdasdasdasdasdasdasdasdas asfa fa s as aaaaaaaaa asssssssssssss sd asssfa afasfasfad</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center">Numar puncte: </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center" th:text="${tema.puncte}">0</h1>
+        </div>
+    </div>
+</div>
+
+<!--Casete tema cu pack-->
+<div class="container space-5 gradient-bg" style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="tema : ${teme}" th:fragment="containerTemePack">
+    <div class="row">
+
+        <div class="col" th:if="${#httpServletRequest.getRequestURI().contains('inf0')}">
+            <a th:href="@{${tema.getObj2()}}">
+                <button class="btn btn-outline-secondary" >Mergi la tema rezolvata</button>
+            </a>
+        </div>
+        <div class="col" th:if="${#httpServletRequest.getRequestURI().contains('inf0')}">
+            <a th:href="@{${#httpServletRequest.getRequestURI()} + '/' + ${tema.getObj1().getId()} + '/update'}">
+                <button class="btn btn-outline-secondary" >Modifica linkul</button>
+            </a>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume: </h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem" th:text="${tema.getObj1().numeTema}">nume1</h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume Culegere: </h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem" th:text="${tema.getObj1().numeCulegere}">Nume cul1</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Numarul Temei:</h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem" th:text="${tema.getObj1().numarTema}">1</h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Dificultate: </h1>
+        </div>
+        <div class="col" style="text-align: center">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem" th:text="${tema.getObj1().dificultate}">Imposibil</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center">Descriere: </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center" th:text="${tema.getObj1().cerintaTema}">asdasdasdasdasdasdasdasdas asfa fa s as aaaaaaaaa asssssssssssss sd asssfa afasfasfad</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center">Numar puncte: </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center" th:text="${tema.getObj1().puncte}">0</h1>
+        </div>
+    </div>
+</div>
 </body>
 </html>
