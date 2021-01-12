@@ -6,11 +6,16 @@
 
 </head>
 <body>
+
+<div class="to-be-cliped"></div>
+
     <nav th:insert="fragments/imports :: navbar"></nav>
+
 
     <div th:if="${!search}" th:insert="fragments/imports :: searchElev"></div>
 
-    <div th:insert="fragments/imports :: casetaElev"></div>
+    <div class="space-10" th:insert="fragments/imports :: casetaElev"></div>
+
 
     <footer th:insert="fragments/footer :: footer"></footer>
 </body>

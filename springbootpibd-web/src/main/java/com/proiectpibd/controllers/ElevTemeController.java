@@ -148,4 +148,14 @@ public class ElevTemeController {
 
         return "redirect:/informatii/"+elevTema.getIdElev()+"/inf0";
     }
+
+    @GetMapping("/{id}/inf0/{idTema}/delete")
+    public String deleteTema(Model model, @PathVariable Integer id, @PathVariable Integer idTema) {
+
+        Optional<ElevTema> returned = elevTemaService.findByIdElevAndIdTema(id,idTema);
+
+        returned.ifPresent(elevTemaService::deleteElevTema);
+
+        return "redirect:/informatii/"+id+"/inf0";
+    }
 }

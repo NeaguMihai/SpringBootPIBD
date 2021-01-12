@@ -7,22 +7,26 @@
 </head>
 <body style="overflow: hidden">
 <nav th:insert="fragments/imports :: navbar"></nav>
+<div class="to-be-cliped"></div>
 
-<div class="container space-10">
+<div class="container space-10 ">
+
     <!-- @thymesVar id="elevTema" type="com.neagumihai.proiectpibddata.model.ElevTema"-->
     <form th:object="${elevTema}" th:action="@{'/informatii/update'}" method="post">
         <div class="row justify-content-center">
             <input type="hidden" th:field="*{idElev}">
             <input type="hidden" th:field="*{idTema}">
-            <div class="col-5" style="box-shadow: 1px 5px 20px 5px #05386B; text-align: center">
+            <div class="col-5 cont gradient-bg" style=" text-align: center">
+                <div class=" container spacing cont">
                 <label class="text-color" style="margin-top: 10px">Linkul spre tema:</label><br/>
                 <input type="text" th:field="*{link_tema}"><br/>
                 <input type="submit" class="btn btn-outline-secondary space-1" value="Aplica">
             </div>
-
+            </div>
         </div>
 
     </form>
+
 </div>
 
 <footer th:insert="fragments/footer :: footer"></footer>

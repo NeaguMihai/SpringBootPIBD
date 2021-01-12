@@ -44,7 +44,8 @@
 
 <!--form pentru cautare elevi-->
 
-<div class="container space-10" style="text-align: center" th:fragment="searchElev">
+<div class="container cont gradient-bg space-10" style="text-align: center" th:fragment="searchElev">
+    <div class=" container cont spacing">
     <!-- @thymesVar id="tema" type="com.neagumihai.proiectpibddata.model.Elev"-->
 
     <form th:action="@{'/elev/search'}" th:object="${elev}" method="get" >
@@ -56,6 +57,7 @@
         <input type="text" class="form-control space-1" th:field="*{scoala}" placeholder="Scoala">
         <input type="submit" class="btn btn-outline-secondary space-1" value="Cauta">
     </form>
+    </div>
 </div>
 
 <!--Butoane stanga dreapta-->
@@ -71,10 +73,11 @@
 
 <!--Caseta elevi-->
 
-<div class="container" th:classappend="${#httpServletRequest.getRequestURI().contains('elev')} ? 'space-5' : ''" th:fragment="casetaElev">
-    <div class="container gradient-bg"
+<div class="container space-10" th:classappend="${#httpServletRequest.getRequestURI().contains('elev')} ? 'space-5' : ''" th:fragment="casetaElev">
+    <div class="container cont gradient-bg"
          th:classappend="${#httpServletRequest.getRequestURI().contains('elev')} ? 'space-5' : ''"
-         style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="elev : ${elevi}" >
+         th:each="elev : ${elevi}" >
+        <div class="cont container spacing">
         <div class="row space-1">
             <div class="col ">
                 <a th:href="@{'/elev/' + ${elev.getId()} + '/delete'}">
@@ -158,15 +161,15 @@
                 <h1 class="font-weight-bold text-color" th:text="${elev.puncte}" style="font-size: 1.5rem">Nume: </h1>
             </div>
         </div>
-
+        </div>
     </div>
 </div>
 
 <!--Caseta join-->
 
 <div class="container "  th:fragment="casetaJoin">
-    <div class="container gradient-bg space-5"
-         style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="pair, index : ${mapa}" >
+    <div class="container gradient-bg cont space-5" th:each="pair, index : ${mapa}" >
+        <div class="cont container spacing">
         <div class="row space-1">
             <div class="col">
                 <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume: </h1>
@@ -192,7 +195,7 @@
             </div>
             <div class="col" >
                 <div class="btn-group">
-                    <button type="button" id="dropdown-join" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button type="button"  class="btn btn-outline-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Action
                     </button>
                     <div class="dropdown-menu" >
@@ -213,15 +216,15 @@
 
         </div>
         <hr>
-
+</div>
     </div>
 </div>
 
 
 <!--Caseta tema fara pack-->
-<div class="container space-5 gradient-bg" style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="tema : ${teme}" th:fragment="containerTeme">
-
-    <div class="row">
+<div class="container space-5 cont gradient-bg"  th:each="tema : ${teme}" th:fragment="containerTeme">
+    <div class=" container cont spacing">
+    <div class="row space-1">
         <div class="col " th:if="${#httpServletRequest.getRequestURI().contains('adauga')}">
             <a th:href="@{${#httpServletRequest.getRequestURI()} + '/' + ${tema.getId()}}">
                 <button class="btn btn-outline-secondary" >Adauga elevului</button>
@@ -239,7 +242,8 @@
         </div>
 
     </div>
-    <div class="row" >
+        <hr>
+    <div class="row space-1" >
         <div class="col" style="text-align: center">
             <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Nume: </h1>
         </div>
@@ -253,7 +257,8 @@
             <h1 class="font-weight-bold text-color" style="font-size: 1.5rem" th:text="${tema.numeCulegere}">Nume cul1</h1>
         </div>
     </div>
-    <div class="row">
+        <hr>
+    <div class="row space-1">
         <div class="col" style="text-align: center">
             <h1 class="font-weight-bold text-color" style="font-size: 1.5rem">Numarul Temei:</h1>
         </div>
@@ -267,30 +272,35 @@
             <h1 class="font-weight-bold text-color" style="font-size: 1.5rem" th:text="${tema.dificultate}">Imposibil</h1>
         </div>
     </div>
-    <div class="row">
+        <hr>
+    <div class="row space-1">
         <div class="col">
             <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center">Descriere: </h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row space-1">
         <div class="col">
             <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center" th:text="${tema.cerintaTema}">asdasdasdasdasdasdasdasdas asfa fa s as aaaaaaaaa asssssssssssss sd asssfa afasfasfad</h1>
         </div>
     </div>
-    <div class="row">
+        <hr>
+    <div class="row space-1">
         <div class="col">
             <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center">Numar puncte: </h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row space-1">
         <div class="col">
             <h1 class="font-weight-bold text-color" style="font-size: 1.5rem; text-align: center" th:text="${tema.puncte}">0</h1>
         </div>
     </div>
+    </div>
 </div>
 
 <!--Casete tema cu pack-->
-<div class="container space-5 gradient-bg" style="box-shadow: 1px 5px 20px 5px #05386B;" th:each="tema : ${teme}" th:fragment="containerTemePack">
+<div class="container space-5 "  th:each="tema : ${teme}" th:fragment="containerTemePack">
+    <div class="gradient-bg cont">
+    <div class=" container cont spacing">
     <div class="row">
 
         <div class="col" th:if="${#httpServletRequest.getRequestURI().contains('inf0')}">
@@ -301,6 +311,11 @@
         <div class="col" th:if="${#httpServletRequest.getRequestURI().contains('inf0')}">
             <a th:href="@{${#httpServletRequest.getRequestURI()} + '/' + ${tema.getObj1().getId()} + '/update'}">
                 <button class="btn btn-outline-secondary" >Modifica linkul</button>
+            </a>
+        </div>
+        <div class="col" th:if="${#httpServletRequest.getRequestURI().contains('inf0')}">
+            <a th:href="@{${#httpServletRequest.getRequestURI()} + '/' + ${tema.getObj1().getId()} + '/delete'}">
+                <button class="btn btn-outline-secondary" >Sterge legatura cu tema</button>
             </a>
         </div>
     </div>
@@ -353,5 +368,7 @@
         </div>
     </div>
 </div>
+    </div>
+    </div>
 </body>
 </html>

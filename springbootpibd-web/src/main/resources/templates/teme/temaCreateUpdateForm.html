@@ -7,15 +7,21 @@
 </head>
 <body>
 <nav th:insert="fragments/imports :: navbar"></nav>
+
+<div class="to-be-cliped"></div>
+
 <div class="container space-10">
+
 <!-- @thymesVar id="tema" type="com.neagumihai.proiectpibddata.model.Tema"-->
     <form th:object="${tema}"  th:action="@{'/teme/save'}" method="post">
+
         <div th:if="${#fields.hasErrors('*')}" style="text-align: center" class="alert alert-danger">
             <p>Corecteaza erorile</p>
         </div>
         <input type="hidden" th:field="*{id}">
-        <div class="row justify-content-center">
-            <div class="col-5" style="box-shadow: 1px 5px 20px 5px #05386B; text-align: center">
+        <div class="row justify-content-center ">
+            <div class="col-5 gradient-bg cont" style="text-align: center">
+                <div class=" container cont spacing">
                 <div th:class="form-group" >
                     <label class="text-color" style="margin-top: 10px">Numele Temei:</label><br/>
                     <div class="container-fluid" th:if="${#fields.hasErrors('numeTema')}">
@@ -86,11 +92,11 @@
                 </div>
                 <input type="submit" class="btn btn-outline-secondary" value="Creaza" style="margin-bottom: 10px">
 
-
+                </div>
             </div>
         </div>
 
-
+    </div>
     </form>
 </div>
 <footer th:insert="fragments/footer :: footer" ></footer>
