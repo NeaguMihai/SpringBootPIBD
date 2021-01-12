@@ -6,6 +6,8 @@
 
 </head>
 <body>
+<div class="to-be-cliped"></div>
+
 <nav th:insert="fragments/imports :: navbar"></nav>
     <div class="container space-10">
         <!-- @thymesVar id="elev" type="com.neagumihai.proiectpibddata.model.Elev"-->
@@ -15,7 +17,8 @@
             </div>
             <input type="hidden" th:field="*{id}">
             <div class="row justify-content-center">
-                <div class="col-5" style="box-shadow: 1px 5px 20px 5px #05386B; text-align: center">
+                <div class="col-5 cont gradient-bg" style="text-align: center">
+                    <div class=" container cont spacing">
                     <div th:class="form-group" >
                         <label class="text-color" style="margin-top: 10px">Numele Elevului:</label><br/>
                         <div class="container-fluid" th:if="${#fields.hasErrors('nume')}">
@@ -43,7 +46,7 @@
                         <div class="container-fluid" th:if="${#fields.hasErrors('dataNastere')}">
                             <div class="row" th:each="err : ${#fields.errors('dataNastere')}">
                                 <div class="col">
-                                    <span  th:text="${err.length() > 60} ? 'Introduceti o data valida de forma dd-MM-yyyy': ${err}" class="text-danger"></span><br>
+                                    <span  th:text="${err}" class="text-danger"></span><br>
                                 </div>
                             </div>
                         </div>
@@ -89,6 +92,7 @@
                     <input type="submit" class="btn btn-outline-secondary space-1" value="Creaza" style="margin-bottom: 10px">
                 </div>
 
+            </div>
             </div>
 
         </form>

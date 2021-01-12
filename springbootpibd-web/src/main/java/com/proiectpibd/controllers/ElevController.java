@@ -12,7 +12,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -79,6 +78,7 @@ public class ElevController {
                                BindingResult bind,
                                RedirectAttributes redirectAttributes){
         if (bind.hasErrors()) {
+
             return "elev/elevCreateUpdateForm";
         }
 

@@ -7,13 +7,14 @@
 </head>
 <body style="overflow: hidden">
 <nav th:insert="fragments/imports :: navbar"></nav>
-
+<div class="to-be-cliped"></div>
     <div class="container-fluid space-10">
         <div class="row ">
             <div class="col">
                 <div th:insert="fragments/imports :: casetaElev"></div>
             </div>
-            <div class="col space-1 insideFrame"style="height: 45rem;  width: 10rem; background-color: #379683" >
+            <div class="col space-1 insideFrame" >
+
                 <div class="container" th:if="${!#httpServletRequest.getRequestURI().contains('adauga')}" th:insert="fragments/imports :: containerTemePack">
 
                 </div>
@@ -27,15 +28,16 @@
     </div>
 
 <footer th:insert="fragments/footer :: footer"></footer>
+
+</body>
 <script >
     $(function() {
-    $(window).on('scroll', function() {
-        $(document).scrollTop(0);
-    });
+        $(window).on('scroll', function() {
+            $(document).scrollTop(0);
+        });
     });
     $(document).ready(function () {
         $('.navbar').addClass('active');
     });
 </script>
-</body>
 </html>

@@ -7,9 +7,13 @@
 </head>
 <body>
 <nav th:insert="fragments/imports :: navbar"></nav>
-<div class="container space-10">
-    <div class="row">
+<div class="to-be-cliped"></div>
+
+<div class="container cont gradient-bg space-10">
+    <div class=" container cont spacing">
+    <div class="row spacing">
         <div class="col-2">
+
             <a th:href="@{'/teme/nou'}">
                 <button class="btn btn-outline-secondary " >Adauga o tema</button>
             </a>
@@ -32,8 +36,7 @@
             </form>
         </div>
     </div>
-
-    <hr/>
+    </div>
 </div>
 <div class="container space-5" th:insert="fragments/imports :: containerTeme">
 
